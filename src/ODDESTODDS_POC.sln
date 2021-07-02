@@ -11,11 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Odds.Application", "Service
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Odds.Repository", "Services\Odds.Repository\Odds.Repository.csproj", "{189FC194-4492-45A5-BC53-47707EB9D651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Odds.API", "Services\Odds.API\Odds.API.csproj", "{7E23F805-CD66-4BC4-978F-CAFFEB2D35EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Odds.API", "Services\Odds.API\Odds.API.csproj", "{7E23F805-CD66-4BC4-978F-CAFFEB2D35EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E9E7B3A8-1827-4C9A-A4FA-A6620FB35819}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WepApps", "WepApps", "{2C2A2A19-2C0F-4650-AFF9-D0C5B90E2C64}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TopologyCreator", "TopologyCreator", "{56358EFB-E076-4ED7-956B-7638D9A7EA8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
