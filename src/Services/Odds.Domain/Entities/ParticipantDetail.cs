@@ -14,6 +14,9 @@ namespace Odds.Domain.Entities
         public virtual Participant Participant { get; }
         private readonly int _index;
         public int Index => _index;
+        private readonly Guid _eventGuid;
+        public Guid eventGuid => _eventGuid;
+        public virtual Event Event { get; private set; }
         private readonly string _description;
         public string Description => _description;
         protected ParticipantDetail() 

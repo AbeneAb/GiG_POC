@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  oddsdb:
+    image: postgres
+
+  pgadmin:
+    image: dpage/pgadmin4
+
+  odds.api:
+    image: ${DOCKER_REGISTRY-}oddsapi
+    build:
+      context: .
+      dockerfile: Services/Odds.API/Dockerfile
+volumes:
+  oddsdb_data:
+  pgadmin_data:
+  postgres_data:

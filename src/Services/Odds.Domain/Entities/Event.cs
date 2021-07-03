@@ -12,6 +12,7 @@ namespace Odds.Domain.Entities
         public Guid CategoryGUID => _categoryGuid;
         private Category _category;
         public virtual Category Category => _category;
+        private int _eventStatusId;
         public EventStatus EventStatus { get; private set; }
         private readonly ICollection<ParticipantDetail> _participants;
         public IReadOnlyCollection<ParticipantDetail> Participants => _participants.ToList();
@@ -32,15 +33,17 @@ namespace Odds.Domain.Entities
             _participants = new HashSet<ParticipantDetail>();
             _markets = new HashSet<Market>();
         }
-        public Event(Guid category, DateTime startDate, Guid competitionGuid, string label) : base() 
+        public Event(Guid category, DateTime startDate, Guid competitionGuid, string label) : this() 
         {
             _categoryGuid = category;
             _startTime = startDate;
             _competitionGuid = competitionGuid;
             _label = label;
+            _eventStatusId = EventStatus.PreMatch.Id;
         }
-        public void AddMarkets() 
+        public void AddMarkets(int marketStatus, int marketstatus,DateTime endDate,Guid? marketTemplate) 
         {
+           var market =  new Market(marketStatus,endDate,marketTemplate);
         }
         public void AddParticipants() 
         {

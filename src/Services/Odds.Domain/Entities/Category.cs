@@ -1,4 +1,5 @@
 ﻿using Odds.Domain.Seed;
+using Odds.Domain.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +16,32 @@ namespace Odds.Domain.Entities
         private Category _parent;
         public virtual Category Parent => _parent;
         private ICollection<Category> _children;
-        public virtual IReadOnlyList<Category> Children => _children?.ToList();
+        public virtual IReadOnlyCollection<Category> Children => _children?.ToList();
 
         private ICollection<Region> _regions;
         public virtual IReadOnlyCollection<Region> Regions => _regions?.ToList();
         private Category()
         {
             _children = new HashSet<Category>();
+            _regions = new HashSet<Region>();
         }
-        public Category(string name, Guid? parentGuid)
+        public Category(string name, Guid? parentGuid):this()
         {
             _name = name;
             _parentGuid = parentGuid;
+        }
+        public void AddChildren() 
+        {
+        }
+        public void AddRegion(string name) 
+        {
+            var exitingRegion = _regions.Where(x => x.Name == name).SingleOrDefault();
+            if(exitingRegion != null) 
+            {
+                throw new DomainException($"Region {name} has already been added in the same Category");
+            }
+            var region = new Region(name);
+            _regions.Add(region);
         }
        
     }
