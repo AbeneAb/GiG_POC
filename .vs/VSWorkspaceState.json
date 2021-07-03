@@ -1,10 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\src",
-    "\\src\\Services",
-    "\\src\\Services\\Odds.API"
+    ""
   ],
-  "SelectedNode": "\\src\\Services\\Odds.API\\Startup.cs",
+  "SelectedNode": "\\ODDESTODDS_POC.sln",
   "PreviewInSolutionExplorer": false
 }
