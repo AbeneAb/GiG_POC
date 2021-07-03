@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WepApps", "WepApps", "{2C2A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TopologyCreator", "TopologyCreator", "{56358EFB-E076-4ED7-956B-7638D9A7EA8E}"
 EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{10B12481-B645-44C5-805B-36D4D1461084}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{7E23F805-CD66-4BC4-978F-CAFFEB2D35EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E23F805-CD66-4BC4-978F-CAFFEB2D35EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E23F805-CD66-4BC4-978F-CAFFEB2D35EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10B12481-B645-44C5-805B-36D4D1461084}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10B12481-B645-44C5-805B-36D4D1461084}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10B12481-B645-44C5-805B-36D4D1461084}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10B12481-B645-44C5-805B-36D4D1461084}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
