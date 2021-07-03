@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Odds.Domain.Interfaces;
 using Odds.Domain.Seed;
 using Odds.Repository.Context;
 using Odds.Repository.Repositories;
@@ -21,12 +22,12 @@ namespace Odds.Repository
             //options.UseNpgsql(configuration.GetConnectionString("OddsonnectionString"));) ;
             services.AddDbContext<OddsContext>(options =>
             {
-                //options.UseLazyLoadingProxies();
                 options.UseNpgsql(configuration.GetConnectionString("OddsConnectionString"));
-            });
-
-
+            }, ServiceLifetime.Scoped);
             services.AddScoped(typeof(IAsyncRepository<>), typeof(RepositoryBase<>));
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IRegionRepository, RegionRepository>();
             return services;
         }
     }

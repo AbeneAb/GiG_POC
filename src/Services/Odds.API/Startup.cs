@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Odds.Application;
 using Odds.Repository;
 using System;
 using System.Collections.Generic;
@@ -26,13 +27,14 @@ namespace Odds.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddApplicationServices();
             services.AddInfrastructureServices(Configuration);
             services.AddControllers();
             services.AddSwaggerGen(c =>
            {
                c.SwaggerDoc("v1", new OpenApiInfo
                {
-                   Title = "Odds.API",
+                   Title = "OddsOdds.API,Clean Architecture Implementation POC",
                    Version = "v1",
                    Description = "ODDESTODDS,Odds API",
                    Contact = new OpenApiContact

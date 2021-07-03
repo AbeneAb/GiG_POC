@@ -12,6 +12,7 @@ namespace Odds.Domain.Entities
         public static MarketStatus Open = new MarketStatus(1, nameof(Open).ToLowerInvariant());
         public static MarketStatus Closed = new MarketStatus(2, nameof(Closed).ToLowerInvariant());
         public static MarketStatus Canceled = new MarketStatus(3, nameof(Canceled).ToLowerInvariant());
+        public static IEnumerable<MarketStatus> List() => new[] { Open, Closed, Canceled };
         public MarketStatus(int id,string name):base(name,id)
         {
 

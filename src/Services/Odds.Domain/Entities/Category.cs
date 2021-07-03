@@ -33,14 +33,13 @@ namespace Odds.Domain.Entities
         public void AddChildren() 
         {
         }
-        public void AddRegion(string name) 
+        public void AddRegion(Region region) 
         {
-            var exitingRegion = _regions.Where(x => x.Name == name).SingleOrDefault();
+            var exitingRegion = _regions.Where(x => x.Name == region.Name).SingleOrDefault();
             if(exitingRegion != null) 
             {
-                throw new DomainException($"Region {name} has already been added in the same Category");
+                throw new DomainException($"Region {region.Name} has already been added in the same Category");
             }
-            var region = new Region(name);
             _regions.Add(region);
         }
        

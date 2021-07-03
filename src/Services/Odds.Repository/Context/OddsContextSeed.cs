@@ -10,20 +10,44 @@ namespace Odds.Repository.Context
 {
     public class OddsContextSeed
     {
-        public static async Task SeedAsync(OddsContext oddsContext, ILogger<OddsContextSeed> logger) 
+        public static async Task SeedAsync(OddsContext oddsContext, ILogger<OddsContextSeed> logger)
         {
+
             if (!oddsContext.Catgories.Any())
             {
                 IEnumerable<Category> sampledata = GetPreConfiguredCategories();
                 oddsContext.Catgories.AddRange(sampledata);
 
+                 await oddsContext.SaveChangesAsync();
+            }
+            if (!oddsContext.EventStatuses.Any())
+            {
+                
+                oddsContext.EventStatuses.AddRange(EventStatus.List());
                 await oddsContext.SaveChangesAsync();
             }
-            if (!oddsContext.Events.Any()) 
+            if (!oddsContext.MarketStatuses.Any())
+            {
+                oddsContext.MarketStatuses.AddRange(MarketStatus.List());
+                await oddsContext.SaveChangesAsync();
+            }
+            if (!oddsContext.Events.Any())
             {
                 await oddsContext.AddRangeAsync(GetPreconfiguredEvents());
-                await oddsContext.SaveChangesAsync();
+                 await oddsContext.SaveChangesAsync();
             }
+
+        }
+        private static IEnumerable<EventStatus> GetPredefinedEventStatus() 
+        {
+            return new List<EventStatus>
+            {
+                EventStatus.PreMatch,
+                EventStatus.Live,
+                EventStatus.PostMatch,
+                EventStatus.Postphoned,
+                EventStatus.Canceled
+            };
         }
         private static IEnumerable<Category> GetPreConfiguredCategories() 
         {
@@ -64,7 +88,7 @@ namespace Odds.Repository.Context
             var eplCompetition = new List<Competition> { epl, faCup };
             foreach (var comp in eplCompetition)
             {
-                england.AddCompetition(comp.Name);
+                england.AddCompetition(comp);
             }
 
             var spain = new Region("Spain");
@@ -94,14 +118,14 @@ namespace Odds.Repository.Context
             var spainCompetition = new List<Competition> { laliga, copaDelrey };
             foreach (var comp in spainCompetition)
             {
-                spain.AddCompetition(comp.Name);
+                spain.AddCompetition(comp);
             }
 
             var regions = new List<Region> { england, spain };
             var category = new Category("Football", null);
             foreach (var region in regions)
             {
-                category.AddRegion(region.Name);
+                category.AddRegion(region);
             }
             return category;
         }
@@ -121,9 +145,9 @@ namespace Odds.Repository.Context
             {
                 nba.AddParticipant(part.Name);
             }
-            usa.AddCompetition(nba.Name);
+            usa.AddCompetition(nba);
             var basket = new Category("BasketBall", null);
-            basket.AddRegion(usa.Name);
+            basket.AddRegion(usa);
             return basket;
         }
         private static IEnumerable<Event> GetPreconfiguredEvents() 

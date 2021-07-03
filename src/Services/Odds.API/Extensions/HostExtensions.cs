@@ -20,6 +20,7 @@ namespace Odds.API.Extensions
                 var context = services.GetService<TContext>();
                 try
                 {
+                    
                     logger.LogInformation("Migrating database associated with context {DbContextName}", typeof(TContext).Name);
                     InvokeSeeder(action, context, services);
                     logger.LogInformation("Migrated database associated with context {DbContextName}", typeof(TContext).Name);

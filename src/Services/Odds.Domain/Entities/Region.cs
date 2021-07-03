@@ -22,15 +22,14 @@ namespace Odds.Domain.Entities
         public string Name => _name;
         private readonly ICollection<Competition> _competitions;
         public IReadOnlyCollection<Competition> Competitions => _competitions.ToList();
-        public void AddCompetition(string name) 
+        public void AddCompetition(Competition competition) 
         {
-            var exists = _competitions.Where(c => c.Name == name).SingleOrDefault();
+            var exists = _competitions.Where(c => c.Name == competition.Name).SingleOrDefault();
             if(exists != null) 
             {
-                throw new DomainException($"Competition {name} exists in collector");
+                throw new DomainException($"Competition {competition.Name} exists in collector");
             }
-            var collection = new Competition(name);
-            _competitions.Add(collection);
+            _competitions.Add(competition);
         }
     }
 }

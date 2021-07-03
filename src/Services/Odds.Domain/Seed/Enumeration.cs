@@ -12,7 +12,7 @@ namespace Odds.Domain.Seed
         public int Id { get; private set; }
         protected Enumeration(string name, int id) 
         {
-            Id = Id;
+            Id = id;
             Name = name;
         }
         public static IEnumerable<T> GetAll<T>() where T : Enumeration

@@ -12,6 +12,7 @@ services:
     build:
       context: .
       dockerfile: Services/Odds.API/Dockerfile
+
 volumes:
   oddsdb_data:
   pgadmin_data:

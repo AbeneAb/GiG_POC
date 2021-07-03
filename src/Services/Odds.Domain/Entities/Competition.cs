@@ -7,14 +7,14 @@ using System.Text;
 
 namespace Odds.Domain.Entities
 {
-    public class Competition : EntityBase 
+    public class Competition : EntityBase
     {
-        private Competition() 
+        private Competition()
         {
             _participants = new HashSet<Participant>();
             _events = new HashSet<Event>();
         }
-        public Competition(string name):this()
+        public Competition(string name) : this()
         {
             _name = name;
         }
@@ -27,10 +27,10 @@ namespace Odds.Domain.Entities
         public IReadOnlyCollection<Participant> Participants => _participants.ToList();
         private ICollection<Event> _events;
         public IReadOnlyCollection<Event> Events => _events?.ToList();
-        public void AddParticipant(string name) 
+        public void AddParticipant(string name)
         {
             var exists = _participants.Where(x => x.Name == name).SingleOrDefault();
-            if (exists != null) 
+            if (exists != null)
             {
                 throw new DomainException($"Participant {name} has been added!");
             }

@@ -11,6 +11,10 @@ namespace Odds.Domain.Entities
     {
         private readonly Guid _marketGuid;
         public Guid MarketGuid => _marketGuid;
+        private readonly int _selectionStatusStatusId;
+        public int SelectionStatusId => _selectionStatusStatusId;
+        public MarketStatus SelectionStatus { get; private set; }
+
         public virtual Market Market { get; private set; }
 
         private readonly decimal _odds;
@@ -24,11 +28,12 @@ namespace Odds.Domain.Entities
         {
 
         }
-        public Selection(decimal odds, int index, string label)
+        public Selection(decimal odds, int index, string label,int selectionStatusStatusId)
         {
             _odds = odds;
             _index = index;
             _participantLabel = label;
+            _selectionStatusStatusId = selectionStatusStatusId;
         }
     }
 }

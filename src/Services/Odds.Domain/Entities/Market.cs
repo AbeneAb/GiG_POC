@@ -29,17 +29,19 @@ namespace Odds.Domain.Entities
             _selections = new HashSet<Selection>();
         }
 
-        public Market(int marketStatus, DateTime endDateTime, Guid? marketTemplate) : this()
+        public Market(int marketStatus, DateTime endDateTime, string label, Guid? marketTemplate) : this()
         {
             _endDateTime = endDateTime;
             _marketTemplate = marketTemplate;
             _marketStatusId = marketStatus;
+            _label = label;
         }
         public string GetMarketTemplateName() => MarketTemplate?.FriendlyName;
-        public void AddSelection(decimal odds,int index,string label) 
+        public void AddSelection(Selection selection) 
         {
-           
+            _selections.Add(selection);
         }
+
         
     }
 }
