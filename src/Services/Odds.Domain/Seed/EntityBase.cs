@@ -6,7 +6,7 @@ namespace Odds.Domain.Seed
 {
     public abstract class EntityBase
     {
-        public int Id { get; protected set; }
+        public Guid Id { get; protected set; }
         public bool IsActive { get; protected set; }
         public Guid CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }

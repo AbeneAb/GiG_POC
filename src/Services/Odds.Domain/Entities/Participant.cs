@@ -9,7 +9,7 @@ namespace Odds.Domain.Entities
     {
         private readonly string _name;
         public string Name => _name;
-
+        public virtual IReadOnlyCollection<ParticipantDetail> ParticipantDetails { get; private set; }
         protected Participant() 
         {
         }

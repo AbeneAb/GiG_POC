@@ -1,4 +1,5 @@
-﻿using Odds.Domain.Seed;
+﻿using Odds.Domain.Exceptions;
+using Odds.Domain.Seed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Odds.Domain.Entities
         {
             _competitions = new HashSet<Competition>();
         }
-        public Region(string name)
+        public Region(string name):this()
         {
             _name = name;
         }
@@ -21,9 +22,15 @@ namespace Odds.Domain.Entities
         public string Name => _name;
         private readonly ICollection<Competition> _competitions;
         public IReadOnlyCollection<Competition> Competitions => _competitions.ToList();
-        public void AddCometition() 
+        public void AddCompetition(string name) 
         {
-          
+            var exists = _competitions.Where(c => c.Name == name).SingleOrDefault();
+            if(exists != null) 
+            {
+                throw new DomainException($"Competition {name} exists in collector");
+            }
+            var collection = new Competition(name);
+            _competitions.Add(collection);
         }
     }
 }

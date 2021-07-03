@@ -1,6 +1,7 @@
 ﻿using Odds.Domain.Seed;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Odds.Domain.Entities
@@ -9,35 +10,36 @@ namespace Odds.Domain.Entities
     {
         private readonly Guid _eventGuid;
         public Guid EventGuid => _eventGuid;
-        private readonly decimal _odds;
-        public decimal Odds => _odds;
-        private readonly Guid _participantGuid;
-        public Guid ParticipantGuid => _participantGuid;
-        public virtual Participant Participant { get; }
+        public virtual Event Event { get; private set; }
+        private readonly int _marketStatusId;
+        public int MarketStatusId => _marketStatusId;
         private readonly string _label;
-        public string Label => _label;
+        public string Label => _label;//Match Result or Total Goals
         public MarketStatus MarketStatus { get; private set; }
         private readonly DateTime _endDateTime;
         public DateTime EndDateTime => _endDateTime;
-        private readonly Guid _marketTemplate;
-        public Guid MarketTemplateGuid => _marketTemplate;
+        private readonly Guid? _marketTemplate;
+        public Guid? MarketTemplateGuid => _marketTemplate;
         public virtual MarketTemplate MarketTemplate { get; }
-        private 
+        private readonly ICollection<Selection> _selections;
+        public IReadOnlyCollection<Selection> Selection => _selections.ToList();
 
         protected Market()
         {
-
+            _selections = new HashSet<Selection>();
         }
-        
-        public Market(Guid eventGuid, decimal odds, Guid participantGuid, DateTime endDateTime,Guid marketTemplate) : base()
+
+        public Market(int marketStatus, DateTime endDateTime, Guid? marketTemplate) : this()
         {
-            _eventGuid = eventGuid;
-            _odds = odds;
-            _participantGuid = participantGuid;
             _endDateTime = endDateTime;
             _marketTemplate = marketTemplate;
+            _marketStatusId = marketStatus;
         }
         public string GetMarketTemplateName() => MarketTemplate?.FriendlyName;
-        public string GetMarketLabel() => Participant?.Name;
+        public void AddSelection(decimal odds,int index,string label) 
+        {
+           
+        }
+        
     }
 }

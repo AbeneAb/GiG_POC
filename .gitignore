@@ -132,3 +132,5 @@ Thumbs.db
 *.ldf
 *.ndf
 
+.vs/VSWorkspaceState.json
+.vs/slnx.sqlite

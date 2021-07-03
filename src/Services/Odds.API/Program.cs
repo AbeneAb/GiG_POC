@@ -1,7 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Odds.API.Extensions;
+using Odds.Repository.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +16,12 @@ namespace Odds.API
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build().MigrateDatabase<OddsContext>((context, service) =>
+            {
+                var logger = service.GetService<ILogger<OddsContextSeed>>();
+                OddsContextSeed.SeedAsync(context, logger).Wait();
+            });
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
