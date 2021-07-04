@@ -1,4 +1,5 @@
-﻿using Odds.Domain.Seed;
+﻿using Odds.Domain.Exceptions;
+using Odds.Domain.Seed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,8 @@ namespace Odds.Domain.Entities
         }
         public Selection(decimal odds, int index, string label,int selectionStatusStatusId)
         {
+            if(odds<= 0)
+                throw new DomainException($"Odd cannot be less than zero");
             _odds = odds;
             _index = index;
             _participantLabel = label;

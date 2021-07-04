@@ -29,12 +29,21 @@ services:
     volumes:
       - pgadmin_data:/root/.pgadmin
 
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "15670:5672"
+      - "15672:15672"
+
   odds.api:
     container_name: odds.api
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - "ConnectionStrings:OddsConnectionString=Server=oddsdb;Port=5432;Database=OddsDb;User Id=admin;Password=admin1234;"
+      - "EventBusSettings:HostAddress=amqp://guest:guest@rabbitmq:5672"
     depends_on:
       - oddsdb
+      - rabbitmq
     ports:
       - "8000:80"

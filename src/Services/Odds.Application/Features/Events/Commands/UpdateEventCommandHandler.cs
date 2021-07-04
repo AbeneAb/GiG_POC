@@ -30,7 +30,7 @@ namespace Odds.Application.Features.Events.Commands
             {
                 foreach (var market in request.MarketCommands)
                 {
-                    var marketEntity = new Market(market.MarketStatus, market.Deadline, market.Label, market.MarketTemplate);
+                    var marketEntity = new Domain.Entities.Market(market.MarketStatus, market.Deadline, market.Label, market.MarketTemplate);
                     eventToUpdate.AddMarkets(marketEntity);
                     if (market.Selections != null && market.Selections.Count > 0)
                     {

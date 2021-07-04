@@ -1,4 +1,5 @@
-﻿using Odds.Domain.Seed;
+﻿using Odds.Domain.Exceptions;
+using Odds.Domain.Seed;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,24 +9,24 @@ namespace Odds.Domain.Entities
 {
     public class Event : EntityBase
     {
-        private readonly Guid _categoryGuid;
+        private Guid _categoryGuid;
         public Guid CategoryGUID => _categoryGuid;
         private Category _category;
         public virtual Category Category => _category;
         private int _eventStatusId;
         public EventStatus EventStatus { get; private set; }
-        private readonly ICollection<ParticipantDetail> _participants;
+        private ICollection<ParticipantDetail> _participants;
         public IReadOnlyCollection<ParticipantDetail> Participants => _participants.ToList();
         private readonly ICollection<Market> _markets;
         public IReadOnlyCollection<Market> Markets => _markets.ToList();
         private readonly DateTime _startTime;
         public DateTime StartDateTime => _startTime;
-        private readonly Guid _competitionGuid;
+        private  Guid _competitionGuid;
         public Guid competitionGuid => _competitionGuid;
         private Competition _competition;
         public virtual Competition Competition => _competition;
 
-        private readonly string _label;
+        private string _label;
         public string Label => _label;
 
         protected Event() 
@@ -43,10 +44,14 @@ namespace Odds.Domain.Entities
         }
         public void AddMarkets(Market market) 
         {
+            if (_markets.Any(x => x.Label == market.Label))
+                throw new DomainException($"{market.Label} has been added");
             _markets.Add(market);
         }
         public void AddParticipants(ParticipantDetail participant) 
         {
+            if (_participants.Where(x => x.Id == participant.Id).Any())
+                throw new DomainException($"{participant.Id} has been added");
             _participants.Add(participant);
         }
 

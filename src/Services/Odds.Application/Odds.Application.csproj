@@ -11,12 +11,14 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="10.2.3" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="10.2.3" />
+    <PackageReference Include="MassTransit" Version="7.2.1" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\TopologyCreator\EventBus.Messages\EventBus.Messages.csproj" />
     <ProjectReference Include="..\Odds.Domain\Odds.Domain.csproj" />
   </ItemGroup>
 

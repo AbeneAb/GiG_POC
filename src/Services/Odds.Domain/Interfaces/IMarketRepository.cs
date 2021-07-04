@@ -11,5 +11,6 @@ namespace Odds.Domain.Interfaces
     public interface IMarketRepository : IAsyncRepository<Market>
     {
         Task<IEnumerable<Market>> GetMarketForEvent(Guid eventGuid);
+        Task<IEnumerable<Market>> GetAllMarkets();
     }
 }

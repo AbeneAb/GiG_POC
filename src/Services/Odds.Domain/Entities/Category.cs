@@ -9,7 +9,7 @@ namespace Odds.Domain.Entities
 {
     public class Category : EntityBase
     {
-        private readonly string _name;
+        private string _name;
         public string Name => _name;
         private readonly Guid? _parentGuid;
         public Guid? ParentGUID => _parentGuid;

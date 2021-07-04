@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using EventBus.Messages.Events;
+using MassTransit;
+using MediatR;
 using Microsoft.Extensions.Logging;
 using Odds.Domain.Exceptions;
 using Odds.Domain.Interfaces;
@@ -15,10 +17,12 @@ namespace Odds.Application.Features.Selection.Command
     {
         private readonly ISelectionRepository _selectionRepository;
         private readonly ILogger<DeleteSelectionCommand> _logger;
-        public DeleteSelectionCommandHandler(ISelectionRepository selectionRepository, ILogger<DeleteSelectionCommand> logger)
+        private readonly IPublishEndpoint _publishEndpoint;
+        public DeleteSelectionCommandHandler(ISelectionRepository selectionRepository, IPublishEndpoint publisher, ILogger<DeleteSelectionCommand> logger)
         {
             _selectionRepository = selectionRepository;
             _logger = logger;
+            _publishEndpoint = publisher;
         }
         public async Task<Unit> Handle(DeleteSelectionCommand request, CancellationToken cancellationToken)
         {
@@ -28,6 +32,9 @@ namespace Odds.Application.Features.Selection.Command
                 throw new NotFoundException(nameof(DeleteSelectionCommand), request.Id);
             }
             _logger.LogInformation($"Selection {request.Id} is successfully Deleted.");
+            SelectionDeletedEvent @event = new SelectionDeletedEvent( selection.Id, DateTime.UtcNow);
+            await _publishEndpoint.Publish(@event);
+
             return Unit.Value;
         }
     }

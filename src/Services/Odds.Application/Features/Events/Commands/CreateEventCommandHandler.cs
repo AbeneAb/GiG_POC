@@ -25,7 +25,7 @@ namespace Odds.Application.Features.Events.Commands
             var @event = new Event(request.CategoryGuid, request.StartTime,request.CompetitionGuid,request.Label,request.EventStatus);
             if(request.MarketCommands != null && request.MarketCommands.Count > 0) {
                 foreach (var market in request.MarketCommands) {
-                    var marketEntity = new Market(market.MarketStatus, market.Deadline, market.Label, market.MarketTemplate);
+                    var marketEntity = new Domain.Entities.Market(market.MarketStatus, market.Deadline, market.Label, market.MarketTemplate);
                     if(market.Selections != null && market.Selections.Count > 0) { 
                         foreach(var selection in market.Selections) {
                             var selectionEntity = new Domain.Entities.Selection(selection.odd, selection.index, selection.participantLabel, selection.status);
