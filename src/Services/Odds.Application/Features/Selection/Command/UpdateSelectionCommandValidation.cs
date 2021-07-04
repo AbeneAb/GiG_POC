@@ -12,7 +12,7 @@ namespace Odds.Application.Features.Selection.Command
         {
             _marketRepository = marketRepository;
             _selectionRepository = selectionRepository;
-            RuleFor(p => p.Id).NotEmpty().MustAsync(async (entity, value, c) => await CheckMarketId(entity)).WithMessage("Selection doesn't exist");
+            RuleFor(p => p.Id).NotEmpty().MustAsync(async (entity, value, c) => await CheckSelection(entity)).WithMessage("Selection doesn't exist");
             RuleFor(p => p.MarketGuid).NotEmpty().
                 MustAsync(async (entity, value, c) => await CheckMarketId(entity)).WithMessage("{Market Id} is required.");
 

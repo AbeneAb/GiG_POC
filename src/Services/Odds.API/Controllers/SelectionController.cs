@@ -44,5 +44,17 @@ namespace Odds.API.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
+
+        [HttpDelete("{id}", Name = "DeleteSelection")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> DeleteSelection(Guid id)
+        {
+            var command = new DeleteSelectionCommand() { Id = id };
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
     }
 }
