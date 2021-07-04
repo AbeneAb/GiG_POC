@@ -1,7 +1,7 @@
 **GiG Coding Challenge**
 
 
-I have used Clean Architecture for this POC, and here is how it is otganized.
+I have used Clean Architecture for this POC, and here is how it is organized.
 This project is organized in such a way that there is loose coupling between layers and embraces dependency inversion principle. At the core of the application is **Odds.Domain** where entities,interfaces, domain exceptions and seeds are defined. The domain is independent of any feature laden tool or framework, which makes it ideal for long term use. On top of this layer is the **Odds.Application** layer where we have our CQRS implementation,Fluent validation and Publisher for our events and messages.Next in line of dependency id **Odds.Infrastructure** layer where frameworks and tools are used. This project uses Entity framework core as our ORM & Postgres database for storage.
 
 **A little about the Domain Entities Design**
@@ -49,6 +49,6 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 * **pgAdmin PostgreSQL -> http://host.docker.internal:5050**   -- admin@odds.com password => admin1234
 
 
-Thank U :slightly_smiling_face:
+Thank you.
 
 
