@@ -26,10 +26,10 @@ namespace Odds.Repository.EntityConfigurations
 
             builder.HasOne(e => e.EventStatus).WithMany().HasForeignKey("_eventStatusId");
             builder.HasOne(e => e.Category).WithMany().HasForeignKey("_categoryGuid");
-            builder.HasOne(e => e.Competition).WithMany(e => e.Events).HasForeignKey(c => c.competitionGuid);
+            builder.HasOne(e => e.Competition).WithMany(e => e.Events).HasForeignKey("_competitionGuid");
             builder.HasMany(e => e.Participants).WithOne(e=>e.Event).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(e => e.Markets).WithOne(e=>e.Event).OnDelete(DeleteBehavior.Cascade);
-
+            
 
         }
     }

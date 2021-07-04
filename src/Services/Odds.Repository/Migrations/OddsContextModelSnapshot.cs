@@ -33,7 +33,7 @@ namespace Odds.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 7, 3, 12, 43, 59, 82, DateTimeKind.Utc).AddTicks(3516))
+                        .HasDefaultValue(new DateTime(2021, 7, 4, 1, 28, 8, 641, DateTimeKind.Utc).AddTicks(5199))
                         .HasColumnName("CreatedDate");
 
                     b.Property<bool>("IsActive")
@@ -79,7 +79,7 @@ namespace Odds.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 7, 3, 12, 43, 59, 114, DateTimeKind.Utc).AddTicks(5731))
+                        .HasDefaultValue(new DateTime(2021, 7, 4, 1, 28, 8, 671, DateTimeKind.Utc).AddTicks(9402))
                         .HasColumnName("CreatedDate");
 
                     b.Property<bool>("IsActive")
@@ -95,7 +95,8 @@ namespace Odds.Repository.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("RegionGuid")
-                        .HasColumnType("uuid");
+                        .HasColumnType("uuid")
+                        .HasColumnName("RegionGuid1");
 
                     b.Property<string>("_name")
                         .IsRequired()
@@ -105,11 +106,13 @@ namespace Odds.Repository.Migrations
 
                     b.Property<Guid>("_regionGuid")
                         .HasColumnType("uuid")
-                        .HasColumnName("Region");
+                        .HasColumnName("RegionGuid");
 
                     b.HasKey("Id");
 
                     b.HasIndex("RegionGuid");
+
+                    b.HasIndex("_regionGuid");
 
                     b.ToTable("Competition", "Odds");
                 });
@@ -128,7 +131,7 @@ namespace Odds.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 7, 3, 12, 43, 59, 123, DateTimeKind.Utc).AddTicks(5381))
+                        .HasDefaultValue(new DateTime(2021, 7, 4, 1, 28, 8, 683, DateTimeKind.Utc).AddTicks(491))
                         .HasColumnName("CreatedDate");
 
                     b.Property<bool>("IsActive")
@@ -167,16 +170,13 @@ namespace Odds.Repository.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("StartTime");
 
-                    b.Property<Guid>("competitionGuid")
-                        .HasColumnType("uuid");
-
                     b.HasKey("Id");
 
                     b.HasIndex("_categoryGuid");
 
-                    b.HasIndex("_eventStatusId");
+                    b.HasIndex("_competitionGuid");
 
-                    b.HasIndex("competitionGuid");
+                    b.HasIndex("_eventStatusId");
 
                     b.ToTable("Event", "Odds");
                 });
@@ -211,11 +211,8 @@ namespace Odds.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 7, 3, 12, 43, 59, 131, DateTimeKind.Utc).AddTicks(2522))
+                        .HasDefaultValue(new DateTime(2021, 7, 4, 1, 28, 8, 689, DateTimeKind.Utc).AddTicks(8743))
                         .HasColumnName("CreatedDate");
-
-                    b.Property<Guid>("EventGuid")
-                        .HasColumnType("uuid");
 
                     b.Property<bool>("IsActive")
                         .ValueGeneratedOnAdd()
@@ -254,7 +251,7 @@ namespace Odds.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EventGuid");
+                    b.HasIndex("_eventGuid");
 
                     b.HasIndex("_marketStatusId");
 
@@ -291,7 +288,7 @@ namespace Odds.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 7, 3, 12, 43, 59, 134, DateTimeKind.Utc).AddTicks(6007))
+                        .HasDefaultValue(new DateTime(2021, 7, 4, 1, 28, 8, 693, DateTimeKind.Utc).AddTicks(9805))
                         .HasColumnName("CreatedDate");
 
                     b.Property<bool>("IsActive")
@@ -341,7 +338,7 @@ namespace Odds.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 7, 3, 12, 43, 59, 148, DateTimeKind.Utc).AddTicks(2391))
+                        .HasDefaultValue(new DateTime(2021, 7, 4, 1, 28, 8, 705, DateTimeKind.Utc).AddTicks(176))
                         .HasColumnName("CreatedDate");
 
                     b.Property<bool>("IsActive")
@@ -437,7 +434,7 @@ namespace Odds.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 7, 3, 12, 43, 59, 151, DateTimeKind.Utc).AddTicks(6529))
+                        .HasDefaultValue(new DateTime(2021, 7, 4, 1, 28, 8, 709, DateTimeKind.Utc).AddTicks(6907))
                         .HasColumnName("CreatedDate");
 
                     b.Property<bool>("IsActive")
@@ -481,7 +478,7 @@ namespace Odds.Repository.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasDefaultValue(new DateTime(2021, 7, 3, 12, 43, 59, 154, DateTimeKind.Utc).AddTicks(2104))
+                        .HasDefaultValue(new DateTime(2021, 7, 4, 1, 28, 8, 712, DateTimeKind.Utc).AddTicks(8671))
                         .HasColumnName("CreatedDate");
 
                     b.Property<bool>("IsActive")
@@ -498,16 +495,13 @@ namespace Odds.Repository.Migrations
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("LastModOn");
 
-                    b.Property<Guid>("MarketGuid")
-                        .HasColumnType("uuid");
-
                     b.Property<int>("_index")
                         .HasColumnType("integer")
                         .HasColumnName("Index");
 
                     b.Property<Guid>("_marketGuid")
                         .HasColumnType("uuid")
-                        .HasColumnName("MarketId");
+                        .HasColumnName("MarketGuid");
 
                     b.Property<decimal>("_odds")
                         .HasColumnType("numeric")
@@ -524,7 +518,7 @@ namespace Odds.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("MarketGuid");
+                    b.HasIndex("_marketGuid");
 
                     b.HasIndex("_selectionStatusStatusId");
 
@@ -548,6 +542,14 @@ namespace Odds.Repository.Migrations
                         .HasForeignKey("RegionGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Odds.Domain.Entities.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("_regionGuid")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("Odds.Domain.Entities.Event", b =>
@@ -558,15 +560,15 @@ namespace Odds.Repository.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Odds.Domain.Entities.EventStatus", "EventStatus")
-                        .WithMany()
-                        .HasForeignKey("_eventStatusId")
+                    b.HasOne("Odds.Domain.Entities.Competition", "Competition")
+                        .WithMany("Events")
+                        .HasForeignKey("_competitionGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Odds.Domain.Entities.Competition", "Competition")
-                        .WithMany("Events")
-                        .HasForeignKey("competitionGuid")
+                    b.HasOne("Odds.Domain.Entities.EventStatus", "EventStatus")
+                        .WithMany()
+                        .HasForeignKey("_eventStatusId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -581,7 +583,7 @@ namespace Odds.Repository.Migrations
                 {
                     b.HasOne("Odds.Domain.Entities.Event", "Event")
                         .WithMany("Markets")
-                        .HasForeignKey("EventGuid")
+                        .HasForeignKey("_eventGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -633,7 +635,7 @@ namespace Odds.Repository.Migrations
                 {
                     b.HasOne("Odds.Domain.Entities.Market", "Market")
                         .WithMany("Selection")
-                        .HasForeignKey("MarketGuid")
+                        .HasForeignKey("_marketGuid")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

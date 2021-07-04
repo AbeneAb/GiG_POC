@@ -23,7 +23,7 @@ namespace Odds.API.Controllers
         }
         [HttpPost(Name = "CreateEvent")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        public async Task<ActionResult<int>> CreateEvent([FromBody] CreateEventCommand command)
+        public async Task<ActionResult<Guid>> CreateEvent([FromBody] CreateEventCommand command)
         {
             var result = await _mediator.Send(command);
             return Ok(result);
@@ -33,8 +33,8 @@ namespace Odds.API.Controllers
         public async Task<ActionResult<IEnumerable<EventsVm>>> GetEvents()
         {
             var query = new GetEventListQuery();
-            var orders = await _mediator.Send(query);
-            return Ok(orders);
+            var events = await _mediator.Send(query);
+            return Ok(events);
         }
         [HttpPut(Name = "UpdateEvent")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]

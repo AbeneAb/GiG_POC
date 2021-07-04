@@ -22,7 +22,9 @@ namespace Odds.Repository.Repositories
             {
                 foreach(var @event in events) 
                 {
+                    await _context.Entry(@event).Reference(e => e.Competition).LoadAsync();
                     await _context.Entry(@event).Collection(e => e.Participants).LoadAsync();
+                    await _context.Entry(@event).Reference(e => e.Category).LoadAsync();
                     await _context.Entry(@event).Reference(e => e.EventStatus).LoadAsync();
                     await _context.Entry(@event).Collection(e => e.Markets).LoadAsync();
                     if(@event.Markets != null && @event.Markets.Count > 0) 
@@ -37,6 +39,14 @@ namespace Odds.Repository.Repositories
                             }
                         }
                     }
+                    if(@event.Participants != null && @event.Participants.Count > 0) 
+                    {
+                        foreach(var participant in @event.Participants) 
+                        {
+                            await _context.Entry(participant).Reference(p => p.Participant).LoadAsync();
+                        }
+                    }
+
                 }
             }
             return events;

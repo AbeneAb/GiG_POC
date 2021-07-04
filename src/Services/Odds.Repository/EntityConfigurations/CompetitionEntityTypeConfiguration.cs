@@ -16,12 +16,12 @@ namespace Odds.Repository.EntityConfigurations
             builder.Property<string>("_name")
                 .UsePropertyAccessMode( PropertyAccessMode.Field)
                 .HasColumnName("Name").HasMaxLength(200).IsRequired(true);
-            builder.Property<Guid>("_regionGuid").UsePropertyAccessMode(PropertyAccessMode.Field).HasColumnName("Region").IsRequired();
+            builder.Property<Guid>("_regionGuid").UsePropertyAccessMode(PropertyAccessMode.Field).HasColumnName("RegionGuid").IsRequired();
             builder.Property(c => c.CreatedDate).HasColumnName("CreatedDate").IsRequired().HasDefaultValue(DateTime.UtcNow);
             builder.Property(c => c.CreatedBy).HasColumnName("CreatedBy").IsRequired();
             builder.Property(c => c.IsActive).HasColumnName("IsActive").IsRequired().HasDefaultValue(true);
-            builder.HasOne(c => c.Region).WithMany().HasForeignKey(c=>c.RegionGuid);
-            builder.HasMany(c => c.Events).WithOne(e => e.Competition).HasForeignKey(e => e.competitionGuid);
+            builder.HasOne(c => c.Region).WithMany().HasForeignKey("_regionGuid");
+            builder.HasMany(c => c.Events).WithOne(e => e.Competition).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

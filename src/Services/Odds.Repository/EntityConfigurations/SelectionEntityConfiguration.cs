@@ -13,7 +13,7 @@ namespace Odds.Repository.EntityConfigurations
             builder.ToTable("Selection", OddsContext.DEFAULT_SCHEMA);
             builder.HasKey(s => s.Id);
             builder.Property(s => s.Id).HasColumnName("Guid").ValueGeneratedOnAdd();
-            builder.Property<Guid>("_marketGuid").UsePropertyAccessMode(PropertyAccessMode.Field).HasColumnName("MarketId").IsRequired();
+            builder.Property<Guid>("_marketGuid").UsePropertyAccessMode(PropertyAccessMode.Field).HasColumnName("MarketGuid").IsRequired();
             builder.Property<decimal>("_odds").UsePropertyAccessMode(PropertyAccessMode.Field).HasColumnName("Odds").IsRequired();
             builder.Property<int>("_index").UsePropertyAccessMode(PropertyAccessMode.Field).HasColumnName("Index").IsRequired();
             builder.Property<string>("_participantLabel").UsePropertyAccessMode(PropertyAccessMode.Field).HasColumnName("ParticipantLabel").IsRequired();
@@ -24,7 +24,7 @@ namespace Odds.Repository.EntityConfigurations
             builder.Property(s => s.IsActive).HasColumnName("IsActive").IsRequired().HasDefaultValue(true);
             builder.Property(p => p.LastModifiedBy).HasColumnName("LastModifiedBy").IsRequired(false);
             builder.Property(p => p.LastModifiedDate).HasColumnName("LastModOn").IsRequired(false);
-            builder.HasOne(s => s.Market).WithMany(m => m.Selection).HasForeignKey(s => s.MarketGuid);
+            builder.HasOne(s => s.Market).WithMany(m => m.Selection).HasForeignKey("_marketGuid");
             builder.HasOne(m => m.SelectionStatus).WithMany().HasForeignKey("_selectionStatusStatusId");
 
         }

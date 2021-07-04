@@ -22,7 +22,7 @@ namespace Odds.Domain.Entities
         public Guid? MarketTemplateGuid => _marketTemplate;
         public virtual MarketTemplate MarketTemplate { get; }
         private readonly ICollection<Selection> _selections;
-        public IReadOnlyCollection<Selection> Selection => _selections.ToList();
+        public virtual List<Selection> Selection { get; set; }
 
         protected Market()
         {

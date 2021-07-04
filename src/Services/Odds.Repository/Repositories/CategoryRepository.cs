@@ -30,10 +30,12 @@ namespace Odds.Repository.Repositories
                         await _context.Entry(competition).Collection(c => c.Events).LoadAsync();
                         foreach(Event events in competition.Events) 
                         {
+                            await _context.Entry(events).Reference(e => e.EventStatus).LoadAsync();
                             await _context.Entry(events).Collection(e => e.Markets).LoadAsync();
                             foreach(Market market in events.Markets) 
                             {
                                 await _context.Entry(market).Collection(m => m.Selection).LoadAsync();
+                                await _context.Entry(market).Reference(m => m.MarketStatus).LoadAsync();
                             }
                         }
                     }

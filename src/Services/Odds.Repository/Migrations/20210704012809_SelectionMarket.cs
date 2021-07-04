@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Odds.Repository.Migrations
 {
-    public partial class SelectionStatus : Migration
+    public partial class SelectionMarket : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,18 +13,10 @@ namespace Odds.Repository.Migrations
                 table: "Selection",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 154, DateTimeKind.Utc).AddTicks(2104),
+                defaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 712, DateTimeKind.Utc).AddTicks(8671),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 986, DateTimeKind.Utc).AddTicks(9507));
-
-            migrationBuilder.AddColumn<int>(
-                name: "SelectionStatus",
-                schema: "Odds",
-                table: "Selection",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0);
+                oldDefaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 404, DateTimeKind.Utc).AddTicks(1780));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -32,10 +24,10 @@ namespace Odds.Repository.Migrations
                 table: "Region",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 151, DateTimeKind.Utc).AddTicks(6529),
+                defaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 709, DateTimeKind.Utc).AddTicks(6907),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 982, DateTimeKind.Utc).AddTicks(8455));
+                oldDefaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 401, DateTimeKind.Utc).AddTicks(2118));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -43,10 +35,10 @@ namespace Odds.Repository.Migrations
                 table: "Participant",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 148, DateTimeKind.Utc).AddTicks(2391),
+                defaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 705, DateTimeKind.Utc).AddTicks(176),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 977, DateTimeKind.Utc).AddTicks(7718));
+                oldDefaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 398, DateTimeKind.Utc).AddTicks(4046));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -54,10 +46,10 @@ namespace Odds.Repository.Migrations
                 table: "MarketTemplate",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 134, DateTimeKind.Utc).AddTicks(6007),
+                defaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 693, DateTimeKind.Utc).AddTicks(9805),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 965, DateTimeKind.Utc).AddTicks(6863));
+                oldDefaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 386, DateTimeKind.Utc).AddTicks(1069));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -65,10 +57,10 @@ namespace Odds.Repository.Migrations
                 table: "Market",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 131, DateTimeKind.Utc).AddTicks(2522),
+                defaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 689, DateTimeKind.Utc).AddTicks(8743),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 961, DateTimeKind.Utc).AddTicks(5669));
+                oldDefaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 383, DateTimeKind.Utc).AddTicks(6295));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -76,10 +68,10 @@ namespace Odds.Repository.Migrations
                 table: "Event",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 123, DateTimeKind.Utc).AddTicks(5381),
+                defaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 683, DateTimeKind.Utc).AddTicks(491),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 953, DateTimeKind.Utc).AddTicks(9374));
+                oldDefaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 377, DateTimeKind.Utc).AddTicks(9525));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -87,10 +79,10 @@ namespace Odds.Repository.Migrations
                 table: "Competition",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 114, DateTimeKind.Utc).AddTicks(5731),
+                defaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 671, DateTimeKind.Utc).AddTicks(9402),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 942, DateTimeKind.Utc).AddTicks(4150));
+                oldDefaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 367, DateTimeKind.Utc).AddTicks(6300));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -98,55 +90,24 @@ namespace Odds.Repository.Migrations
                 table: "Category",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 82, DateTimeKind.Utc).AddTicks(3516),
+                defaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 641, DateTimeKind.Utc).AddTicks(5199),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 904, DateTimeKind.Utc).AddTicks(3901));
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Selection_SelectionStatus",
-                schema: "Odds",
-                table: "Selection",
-                column: "SelectionStatus");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Selection_MarketStatus_SelectionStatus",
-                schema: "Odds",
-                table: "Selection",
-                column: "SelectionStatus",
-                principalSchema: "Odds",
-                principalTable: "MarketStatus",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
+                oldDefaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 340, DateTimeKind.Utc).AddTicks(7290));
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Selection_MarketStatus_SelectionStatus",
-                schema: "Odds",
-                table: "Selection");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Selection_SelectionStatus",
-                schema: "Odds",
-                table: "Selection");
-
-            migrationBuilder.DropColumn(
-                name: "SelectionStatus",
-                schema: "Odds",
-                table: "Selection");
-
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
                 schema: "Odds",
                 table: "Selection",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 986, DateTimeKind.Utc).AddTicks(9507),
+                defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 404, DateTimeKind.Utc).AddTicks(1780),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 154, DateTimeKind.Utc).AddTicks(2104));
+                oldDefaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 712, DateTimeKind.Utc).AddTicks(8671));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -154,10 +115,10 @@ namespace Odds.Repository.Migrations
                 table: "Region",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 982, DateTimeKind.Utc).AddTicks(8455),
+                defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 401, DateTimeKind.Utc).AddTicks(2118),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 151, DateTimeKind.Utc).AddTicks(6529));
+                oldDefaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 709, DateTimeKind.Utc).AddTicks(6907));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -165,10 +126,10 @@ namespace Odds.Repository.Migrations
                 table: "Participant",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 977, DateTimeKind.Utc).AddTicks(7718),
+                defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 398, DateTimeKind.Utc).AddTicks(4046),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 148, DateTimeKind.Utc).AddTicks(2391));
+                oldDefaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 705, DateTimeKind.Utc).AddTicks(176));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -176,10 +137,10 @@ namespace Odds.Repository.Migrations
                 table: "MarketTemplate",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 965, DateTimeKind.Utc).AddTicks(6863),
+                defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 386, DateTimeKind.Utc).AddTicks(1069),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 134, DateTimeKind.Utc).AddTicks(6007));
+                oldDefaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 693, DateTimeKind.Utc).AddTicks(9805));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -187,10 +148,10 @@ namespace Odds.Repository.Migrations
                 table: "Market",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 961, DateTimeKind.Utc).AddTicks(5669),
+                defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 383, DateTimeKind.Utc).AddTicks(6295),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 131, DateTimeKind.Utc).AddTicks(2522));
+                oldDefaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 689, DateTimeKind.Utc).AddTicks(8743));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -198,10 +159,10 @@ namespace Odds.Repository.Migrations
                 table: "Event",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 953, DateTimeKind.Utc).AddTicks(9374),
+                defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 377, DateTimeKind.Utc).AddTicks(9525),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 123, DateTimeKind.Utc).AddTicks(5381));
+                oldDefaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 683, DateTimeKind.Utc).AddTicks(491));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -209,10 +170,10 @@ namespace Odds.Repository.Migrations
                 table: "Competition",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 942, DateTimeKind.Utc).AddTicks(4150),
+                defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 367, DateTimeKind.Utc).AddTicks(6300),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 114, DateTimeKind.Utc).AddTicks(5731));
+                oldDefaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 671, DateTimeKind.Utc).AddTicks(9402));
 
             migrationBuilder.AlterColumn<DateTime>(
                 name: "CreatedDate",
@@ -220,10 +181,10 @@ namespace Odds.Repository.Migrations
                 table: "Category",
                 type: "timestamp without time zone",
                 nullable: false,
-                defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 904, DateTimeKind.Utc).AddTicks(3901),
+                defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 340, DateTimeKind.Utc).AddTicks(7290),
                 oldClrType: typeof(DateTime),
                 oldType: "timestamp without time zone",
-                oldDefaultValue: new DateTime(2021, 7, 3, 12, 43, 59, 82, DateTimeKind.Utc).AddTicks(3516));
+                oldDefaultValue: new DateTime(2021, 7, 4, 1, 28, 8, 641, DateTimeKind.Utc).AddTicks(5199));
         }
     }
 }

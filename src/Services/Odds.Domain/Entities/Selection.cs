@@ -35,5 +35,9 @@ namespace Odds.Domain.Entities
             _participantLabel = label;
             _selectionStatusStatusId = selectionStatusStatusId;
         }
+        public Selection(Guid marketGuid, decimal odds, int index, string label, int selectionStatusStatusId) : this(odds, index, label, selectionStatusStatusId) 
+        {
+            _marketGuid = marketGuid;
+        }
     }
 }

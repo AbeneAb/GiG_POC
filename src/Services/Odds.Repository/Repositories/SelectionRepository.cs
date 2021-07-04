@@ -16,6 +16,20 @@ namespace Odds.Repository.Repositories
 
         }
 
+        public async Task<IEnumerable<Selection>> GetAllSelection()
+        {
+            var selections = await GetAllAsync();
+            if (selections != null)
+            {
+                foreach (var selection in selections)
+                {
+                    await _context.Entry(selection).Reference(s => s.SelectionStatus).LoadAsync();
+                    await _context.Entry(selection).Reference(s => s.Market).LoadAsync();
+                }
+            }
+            return selections;
+        }
+
         public async Task<IEnumerable<Selection>> GetSelectionForMarket(Guid marketGuid)
         {
             var selections = await GetAsync(x => x.MarketGuid == marketGuid);
@@ -24,9 +38,11 @@ namespace Odds.Repository.Repositories
                 foreach(var selection in selections) 
                 {
                     await _context.Entry(selection).Reference(s => s.SelectionStatus).LoadAsync();
+                    await _context.Entry(selection).Reference(s => s.Market).LoadAsync();
                 }
             }
             return selections;
         }
+
     }
 }

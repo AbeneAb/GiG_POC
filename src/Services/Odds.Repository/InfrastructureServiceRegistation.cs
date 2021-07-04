@@ -28,6 +28,8 @@ namespace Odds.Repository
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<IEventRepository, EventRepository>();
             services.AddScoped<IRegionRepository, RegionRepository>();
+            services.AddScoped<ISelectionRepository, SelectionRepository>();
+            services.AddScoped<IMarketRepository, MarketRepository>();
             return services;
         }
     }

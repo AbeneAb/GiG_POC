@@ -16,6 +16,8 @@ namespace Odds.Application.ViewModels
         public int Index { get; set; }
         public string Label { get; set; }
         public string Status { get; set; }
+        public string MarketLabel { get; set; }
+        public DateTime? DeadLine { get; set; }
         public SelectionVm(Selection selection):base(selection)
         {
             MarketGuid = selection.MarketGuid;
@@ -23,6 +25,8 @@ namespace Odds.Application.ViewModels
             Index = selection.Index;
             Label = selection.ParticipantLabel;
             Status = selection.SelectionStatus.Name;
+            MarketLabel = selection.Market?.Label;
+            DeadLine = selection.Market?.EndDateTime;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Odds.Repository.Migrations
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     CreatedByUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 904, DateTimeKind.Utc).AddTicks(3901)),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 340, DateTimeKind.Utc).AddTicks(7290)),
                     LastModifiedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -72,7 +72,7 @@ namespace Odds.Repository.Migrations
                     Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 965, DateTimeKind.Utc).AddTicks(6863)),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 386, DateTimeKind.Utc).AddTicks(1069)),
                     LastModifiedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -91,7 +91,7 @@ namespace Odds.Repository.Migrations
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 982, DateTimeKind.Utc).AddTicks(8455)),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 401, DateTimeKind.Utc).AddTicks(2118)),
                     LastModifiedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -113,12 +113,12 @@ namespace Odds.Repository.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uuid", nullable: false),
+                    RegionGuid1 = table.Column<Guid>(type: "uuid", nullable: false),
                     RegionGuid = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
-                    Region = table.Column<Guid>(type: "uuid", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 942, DateTimeKind.Utc).AddTicks(4150)),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 367, DateTimeKind.Utc).AddTicks(6300)),
                     LastModifiedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModifiedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -128,6 +128,13 @@ namespace Odds.Repository.Migrations
                     table.ForeignKey(
                         name: "FK_Competition_Region_RegionGuid",
                         column: x => x.RegionGuid,
+                        principalSchema: "Odds",
+                        principalTable: "Region",
+                        principalColumn: "Guid",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Competition_Region_RegionGuid1",
+                        column: x => x.RegionGuid1,
                         principalSchema: "Odds",
                         principalTable: "Region",
                         principalColumn: "Guid",
@@ -142,13 +149,12 @@ namespace Odds.Repository.Migrations
                     Guid = table.Column<Guid>(type: "uuid", nullable: false),
                     Category = table.Column<Guid>(type: "uuid", nullable: false),
                     EventStatus = table.Column<int>(type: "integer", nullable: false),
-                    competitionGuid = table.Column<Guid>(type: "uuid", nullable: false),
                     Competition = table.Column<Guid>(type: "uuid", nullable: false),
                     Label = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     StartTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 953, DateTimeKind.Utc).AddTicks(9374)),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 377, DateTimeKind.Utc).AddTicks(9525)),
                     LastModifiedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -163,8 +169,8 @@ namespace Odds.Repository.Migrations
                         principalColumn: "Guid",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Event_Competition_competitionGuid",
-                        column: x => x.competitionGuid,
+                        name: "FK_Event_Competition_Competition",
+                        column: x => x.Competition,
                         principalSchema: "Odds",
                         principalTable: "Competition",
                         principalColumn: "Guid",
@@ -188,7 +194,7 @@ namespace Odds.Repository.Migrations
                     _name = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 977, DateTimeKind.Utc).AddTicks(7718)),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 398, DateTimeKind.Utc).AddTicks(4046)),
                     LastModifiedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -210,15 +216,14 @@ namespace Odds.Repository.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uuid", nullable: false),
-                    EventGuid = table.Column<Guid>(type: "uuid", nullable: false),
+                    Event = table.Column<Guid>(type: "uuid", nullable: false),
                     MarketStatus = table.Column<int>(type: "integer", nullable: false),
                     Endtime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
-                    Event = table.Column<Guid>(type: "uuid", nullable: false),
                     Label = table.Column<string>(type: "text", nullable: false),
                     MarketTemplate = table.Column<Guid>(type: "uuid", nullable: true),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 961, DateTimeKind.Utc).AddTicks(5669)),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 383, DateTimeKind.Utc).AddTicks(6295)),
                     LastModifiedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -226,8 +231,8 @@ namespace Odds.Repository.Migrations
                 {
                     table.PrimaryKey("PK_Market", x => x.Guid);
                     table.ForeignKey(
-                        name: "FK_Market_Event_EventGuid",
-                        column: x => x.EventGuid,
+                        name: "FK_Market_Event_Event",
+                        column: x => x.Event,
                         principalSchema: "Odds",
                         principalTable: "Event",
                         principalColumn: "Guid",
@@ -282,14 +287,14 @@ namespace Odds.Repository.Migrations
                 columns: table => new
                 {
                     Guid = table.Column<Guid>(type: "uuid", nullable: false),
+                    SelectionStatus = table.Column<int>(type: "integer", nullable: false),
                     MarketGuid = table.Column<Guid>(type: "uuid", nullable: false),
                     Index = table.Column<int>(type: "integer", nullable: false),
-                    MarketId = table.Column<Guid>(type: "uuid", nullable: false),
                     Odds = table.Column<decimal>(type: "numeric", nullable: false),
                     ParticipantLabel = table.Column<string>(type: "text", nullable: false),
                     IsActive = table.Column<bool>(type: "boolean", nullable: false, defaultValue: true),
                     CreatedBy = table.Column<Guid>(type: "uuid", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 2, 21, 43, 10, 986, DateTimeKind.Utc).AddTicks(9507)),
+                    CreatedDate = table.Column<DateTime>(type: "timestamp without time zone", nullable: false, defaultValue: new DateTime(2021, 7, 4, 0, 55, 40, 404, DateTimeKind.Utc).AddTicks(1780)),
                     LastModifiedBy = table.Column<Guid>(type: "uuid", nullable: true),
                     LastModOn = table.Column<DateTime>(type: "timestamp without time zone", nullable: true)
                 },
@@ -302,6 +307,13 @@ namespace Odds.Repository.Migrations
                         principalSchema: "Odds",
                         principalTable: "Market",
                         principalColumn: "Guid",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Selection_MarketStatus_SelectionStatus",
+                        column: x => x.SelectionStatus,
+                        principalSchema: "Odds",
+                        principalTable: "MarketStatus",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -318,16 +330,22 @@ namespace Odds.Repository.Migrations
                 column: "RegionGuid");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Competition_RegionGuid1",
+                schema: "Odds",
+                table: "Competition",
+                column: "RegionGuid1");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Event_Category",
                 schema: "Odds",
                 table: "Event",
                 column: "Category");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Event_competitionGuid",
+                name: "IX_Event_Competition",
                 schema: "Odds",
                 table: "Event",
-                column: "competitionGuid");
+                column: "Competition");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Event_EventStatus",
@@ -336,10 +354,10 @@ namespace Odds.Repository.Migrations
                 column: "EventStatus");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Market_EventGuid",
+                name: "IX_Market_Event",
                 schema: "Odds",
                 table: "Market",
-                column: "EventGuid");
+                column: "Event");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Market_MarketStatus",
@@ -376,6 +394,12 @@ namespace Odds.Repository.Migrations
                 schema: "Odds",
                 table: "Selection",
                 column: "MarketGuid");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Selection_SelectionStatus",
+                schema: "Odds",
+                table: "Selection",
+                column: "SelectionStatus");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

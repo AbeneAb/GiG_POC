@@ -10,6 +10,7 @@ namespace Odds.Domain.Interfaces
 {
     public interface ISelectionRepository : IAsyncRepository<Selection>
     {
-        Task<IEnumerable<Selection>> GetSelectionForMarket(Guid guid);
+        Task<IEnumerable<Selection>> GetSelectionForMarket(Guid marketGuid);
+        Task<IEnumerable<Selection>> GetAllSelection();
     }
 }

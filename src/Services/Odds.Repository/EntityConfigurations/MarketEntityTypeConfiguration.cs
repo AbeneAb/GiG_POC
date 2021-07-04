@@ -24,9 +24,11 @@ namespace Odds.Repository.EntityConfigurations
             builder.Property(m => m.CreatedBy).HasColumnName("CreatedBy").IsRequired();
             builder.Property(p => p.LastModifiedBy).HasColumnName("LastModifiedBy").IsRequired(false);
             builder.Property(p => p.LastModifiedDate).HasColumnName("LastModOn").IsRequired(false);
-            builder.HasOne(m => m.Event).WithMany(e => e.Markets).HasForeignKey(m => m.EventGuid);
-            builder.HasMany(m => m.Selection).WithOne(s => s.Market).HasForeignKey(s => s.MarketGuid);
+            builder.HasOne(m => m.Event).WithMany(e => e.Markets).HasForeignKey("_eventGuid");
             builder.HasOne(m => m.MarketStatus).WithMany().HasForeignKey("_marketStatusId");
+            builder.HasMany(m => m.Selection).WithOne(m => m.Market).OnDelete(DeleteBehavior.Cascade);
+            var navigation = builder.Metadata.FindNavigation(nameof(Market.Selection));
+            navigation.SetPropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }
