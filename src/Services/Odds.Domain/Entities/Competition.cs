@@ -18,9 +18,9 @@ namespace Odds.Domain.Entities
         {
             _name = name;
         }
-        private readonly string _name;
+        private string _name;
         public string Name => _name;
-        private readonly Guid _regionGuid;
+        private Guid _regionGuid;
         public Guid RegionGuid => _regionGuid;
         public virtual Region Region { get; }
         private ICollection<Participant> _participants;

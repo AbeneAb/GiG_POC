@@ -35,7 +35,14 @@ namespace Odds.API.Controllers
             var result = await _mediator.Send(query);
             return Ok(result);
         }
-        
-
+        [HttpPut(Name = "UpdateSelection")]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> UpdateSelection([FromBody] UpdateSelectionCommand command)
+        {
+            await _mediator.Send(command);
+            return NoContent();
+        }
     }
 }
