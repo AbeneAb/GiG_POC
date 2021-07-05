@@ -30,6 +30,16 @@ namespace Odds.Repository.Repositories
             return selections;
         }
 
+        public async Task<Selection> GetSelection(Guid Id)
+        {
+            var selection = await GetByIdAsync(Id);
+            if(selection != null) 
+            {
+                await _context.Entry(selection).Reference(s => s.SelectionStatus).LoadAsync();
+            }
+            return selection;
+        }
+
         public async Task<IEnumerable<Selection>> GetSelectionForMarket(Guid marketGuid)
         {
             var selections = await GetAsync(x => x.MarketGuid == marketGuid);

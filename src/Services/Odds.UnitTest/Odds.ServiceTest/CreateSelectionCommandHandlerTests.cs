@@ -27,13 +27,22 @@ namespace Odds.ServiceTest
             _testee = new CreateSelectionCommandHandler(_selectionRepo, _updater);
         }
         [Fact]
-        public async void Handle_ShouldReturnCreatedMarket()
+        public async void Handle_ShouldReturnCreatedSelection()
         {
             A.CallTo(() => _selectionRepo.AddAsync(A<Selection>._)).Returns(new Selection(1.2m,1,"Label",1));
 
-            var result = await _testee.Handle(new CreateSelectionCommand(), default);
-
+            var result = await _testee.Handle(new CreateSelectionCommand() {  Odds = 1.2m, Index = 1, Status = 1, Label = "Label"}, default);
+            Assert.IsType<Guid>(result);
         }
+
+        [Fact]
+        public async void Handle_ShouldCallRepositoryAddAsync()
+        {
+            await _testee.Handle(new CreateSelectionCommand() {  Odds = 2.5m, Index =1, Label = "Test", MarketGuid = Guid.NewGuid(), Status =1}, default);
+
+            A.CallTo(() => _selectionRepo.AddAsync(A<Selection>._)).MustHaveHappenedOnceExactly();
+        }
+        
 
     }
 }

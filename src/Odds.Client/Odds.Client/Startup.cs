@@ -13,6 +13,7 @@ using Microsoft.OpenApi.Models;
 using Odds.Client.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Builder;
+using Odds.Client.EventConsumer;
 
 namespace Odds.Client
 {
@@ -32,7 +33,7 @@ namespace Odds.Client
             var serviceClientSettings = serviceClientSettingsConfig.Get<RabbitMqConfiguration>();
             services.Configure<RabbitMqConfiguration>(serviceClientSettingsConfig);
             services.AddHostedService<SelectionUpdateRecevier>();
-
+            services.AddTransient<OddsDisplay>();
             services.AddTransient<LoggingDelegatingHandler>();
             //services.AddTransient<OddsDisplay>();
             services.AddHostedService<SelectionUpdateRecevier>();

@@ -34,6 +34,26 @@ namespace Odds.Client
             _port = Convert.ToInt32(rabbitMqOptions.Value.Port);
             _selectionUpdateRecevier = selectionUpdateRecevier;
             InitializeRabbitMqListener();
+            InitializeData();
+            
+        }
+        private async Task InitializeData() 
+        {
+            Console.WriteLine("First call to Selections");
+            var response = await _selectionUpdateRecevier.GetSelections();
+            var groupByMarket = response.GroupBy(x => x.MarketGuid);
+            var table = new ConsoleTable("Index", "Label", "Odds", "Deadline", "Status");
+
+            foreach (var marketGroup in groupByMarket)
+            {
+                string str = marketGroup.FirstOrDefault().MarketLabel;
+                table.AddRow("", "", str, "", "");
+                foreach (var selection in marketGroup)
+                {
+                    table.AddRow(selection.Index, selection.Label, selection.Odds, selection.DeadLine, selection.Status);
+                }
+                table.Write();
+            }
         }
         private void InitializeRabbitMqListener()
         {
