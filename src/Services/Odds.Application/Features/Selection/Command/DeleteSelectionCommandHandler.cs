@@ -22,11 +22,12 @@ namespace Odds.Application.Features.Selection.Command
         }
         public async Task<Unit> Handle(DeleteSelectionCommand request, CancellationToken cancellationToken)
         {
-            var selection = await _selectionRepository.GetByIdAsync(request.Id);
+            var selection = await _selectionRepository.GetSelection(request.Id);
             if (selection == null) 
             {
                 throw new NotFoundException(nameof(DeleteSelectionCommand), request.Id);
             }
+            await _selectionRepository.DeleteAsync(selection);
             _logger.LogInformation($"Selection {request.Id} is successfully Deleted.");
             SelectionEvent @event = new SelectionEvent(selection.Id,selection.CreatedDate, selection.Odds,selection.MarketGuid,selection.Index, selection.SelectionStatus.Id
                 ,selection.ParticipantLabel);
