@@ -25,7 +25,7 @@ namespace Odds.Application.Features.Events.Commands
             {
                 throw new NotFoundException(nameof(Event), request.Id);
             }
-            eventToUpdate = new Event(request.CategoryGuid, request.StartTime, request.CompetitionGuid, request.Label, request.EventStatus);
+            eventToUpdate.UpdateEvent(request.CategoryGuid, request.StartTime, request.CompetitionGuid, request.Label, request.EventStatus);
             if (request.MarketCommands != null && request.MarketCommands.Count > 0)
             {
                 foreach (var market in request.MarketCommands)

@@ -44,6 +44,12 @@ namespace Odds.Client
                .AddHttpMessageHandler<LoggingDelegatingHandler>()
                .AddPolicyHandler(GetRetryPolicy())
                .AddPolicyHandler(GetCircuitBreakerPolicy());
+
+            services.AddHttpClient<IEventService, EventService>(c =>
+                c.BaseAddress = new Uri(Configuration["ApiSettings:GatewayAddress"]))
+               .AddHttpMessageHandler<LoggingDelegatingHandler>()
+               .AddPolicyHandler(GetRetryPolicy())
+               .AddPolicyHandler(GetCircuitBreakerPolicy());
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
