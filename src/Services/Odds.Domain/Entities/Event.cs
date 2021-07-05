@@ -50,7 +50,7 @@ namespace Odds.Domain.Entities
         }
         public void AddParticipants(ParticipantDetail participant) 
         {
-            if (_participants.Where(x => x.Id == participant.Id).Any())
+            if (_participants.Where(x => x.Id != Guid.Empty && x.Id == participant.Id).Any())
                 throw new DomainException($"{participant.Id} has been added");
             _participants.Add(participant);
         }
