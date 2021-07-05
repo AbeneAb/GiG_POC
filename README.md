@@ -23,7 +23,8 @@ The project is orgainized with microservice architecture in mind, hence I have
 * Containerization of API,DB PgAdmin & RabbitMQ
 * Containerization of databases
 * Override Environment variables
-#### Selection Event Console Application
+#### Odds Client Webapp
+* Implemented RabbitMQ Subscriber Hosted Service.
 * * Implement **Retry and Circuit Breaker patterns** with exponential backoff with IHttpClientFactory and **Polly policies**
 
 ## Running The Project
