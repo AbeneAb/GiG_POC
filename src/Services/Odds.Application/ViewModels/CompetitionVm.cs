@@ -12,14 +12,14 @@ namespace Odds.Application.ViewModels
     {
         public string Name { get; private set; }
         public Guid RegionId { get; private set; }
-        public List<ParticipantVm> participantVms { get; private set; }
+        public List<ParticipantVm> Participants { get; private set; }
         public List<EventsVm> Events { get; private set; }
 
         public CompetitionVm(Competition competition):base(competition)
         {
             Name = competition.Name;
             RegionId = competition.RegionGuid;
-            participantVms = competition.Participants?.Select(p => new ParticipantVm(p)).ToList();
+            Participants = competition.Participants?.Select(p => new ParticipantVm(p)).ToList();
             Events = competition.Events?.Select(e => new EventsVm(e)).ToList();
         }
     }

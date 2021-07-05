@@ -4,9 +4,11 @@ using EventBus.Messages.Events;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Odds.Client.Contracts;
+using Odds.Client.Models;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
@@ -19,13 +21,14 @@ namespace Odds.Client
     {
         private IModel _channel;
         private IConnection _connection;
-        private readonly ISelectionService _selectionUpdateRecevier;
+        private readonly IEventService _selectionUpdateRecevier;
+        private readonly ISelectionService _selectionService;
         private readonly string _hostname;
         private readonly string _queueName;
         private readonly string _username;
         private readonly string _password;
         private readonly int _port;
-        public SelectionUpdateRecevier(IOptions<RabbitMqConfiguration> rabbitMqOptions, ISelectionService selectionUpdateRecevier, IServiceProvider sp)
+        public SelectionUpdateRecevier(IOptions<RabbitMqConfiguration> rabbitMqOptions, IEventService selectionUpdateRecevier,ISelectionService selectionService)
         {
             _hostname = rabbitMqOptions.Value.Hostname;
             _queueName = rabbitMqOptions.Value.QueueName;
@@ -33,6 +36,7 @@ namespace Odds.Client
             _password = rabbitMqOptions.Value.Password;
             _port = Convert.ToInt32(rabbitMqOptions.Value.Port);
             _selectionUpdateRecevier = selectionUpdateRecevier;
+            _selectionService = selectionService;
             InitializeRabbitMqListener();
             InitializeData();
             
@@ -40,19 +44,42 @@ namespace Odds.Client
         private async Task InitializeData() 
         {
             Console.WriteLine("First call to Selections");
-            var response = await _selectionUpdateRecevier.GetSelections();
-            var groupByMarket = response.GroupBy(x => x.MarketGuid);
-            var table = new ConsoleTable("Index", "Label", "Odds", "Deadline", "Status");
+            var response = await _selectionUpdateRecevier.GetEvents();
+            DrawTable(response);
+        }
+        private void DrawTable(IEnumerable<EventModel> events) 
+        {
 
-            foreach (var marketGroup in groupByMarket)
+            foreach(var @event in events) 
             {
-                string str = marketGroup.FirstOrDefault().MarketLabel;
-                table.AddRow("", "", str, "", "");
-                foreach (var selection in marketGroup)
-                {
-                    table.AddRow(selection.Index, selection.Label, selection.Odds, selection.DeadLine, selection.Status);
-                }
+                var table = new ConsoleTable("Event Name", "Status", "Competition", "Category");
+                table.AddRow(@event.Label, @event.EventStatus, @event.Competition, @event.Category);
+               
                 table.Write();
+                Console.WriteLine("Participants for this event are...");
+                var participantTable = new ConsoleTable("Index","Label");
+                foreach(var participant in @event.ParticipantDetails) 
+                {
+                    participantTable.AddRow(participant.Index, participant.Description);
+                }
+               
+                participantTable.Write();
+                Console.WriteLine("Market for this event are...");
+                foreach (var market in @event.Market) 
+                {
+                    var marketTable = new ConsoleTable("Market Label","Deadline","Status");
+                    marketTable.AddRow(market.Label, market.DeadLine, market.MarketStatus);
+                    marketTable.Write();
+                    Console.WriteLine($"Available Odds or Selections for Market => {market.Label } are : ");
+                    var selectionTable = new ConsoleTable("odds", "index", "label", "status");
+                    foreach (var selection in market.Selections) 
+                    {
+                        selectionTable.AddRow(selection.Odds, selection.Index, selection.Label, selection.Status);
+                    }
+                    selectionTable.Write();
+
+                }
+
             }
         }
         private void InitializeRabbitMqListener()
@@ -97,24 +124,12 @@ namespace Odds.Client
 
         private async Task HandleMessage(SelectionUpdatedEvent selectionUpdate)
         {
-            Console.WriteLine("One row Updated.");
+            Console.WriteLine("One Selection row Updated.");
             var singleRow = new ConsoleTable("Guid" ,"Index", "Label", "Odds", "Deadline", "Status");
             singleRow.AddRow(selectionUpdate.Id, selectionUpdate.Index, selectionUpdate.Label, selectionUpdate.Odds, selectionUpdate.Odds, selectionUpdate.Status);
-
-            var response = await _selectionUpdateRecevier.GetSelections();
-            var groupByMarket = response.GroupBy(x => x.MarketGuid);
-            var table = new ConsoleTable("Index", "Label", "Odds", "Deadline", "Status");
-
-            foreach (var marketGroup in groupByMarket)
-            {
-                string str = marketGroup.FirstOrDefault().MarketLabel;
-                table.AddRow("", "", str, "", "");
-                foreach (var selection in marketGroup)
-                {
-                    table.AddRow(selection.Index, selection.Label, selection.Odds, selection.DeadLine, selection.Status);
-                }
-                table.Write();
-            }
+            Console.WriteLine("Here is an updated Table");
+            var response = await _selectionUpdateRecevier.GetEvents();
+            DrawTable(response);
         }
         private void OnConsumerCancelled(object sender, ConsumerEventArgs e)
         {
