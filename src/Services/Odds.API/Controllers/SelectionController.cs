@@ -5,9 +5,9 @@ using Odds.Application.Features.Selection.Query;
 using Odds.Application.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using EventBus.Messages.Events;
 
 namespace Odds.API.Controllers
 {
@@ -16,6 +16,7 @@ namespace Odds.API.Controllers
     public class SelectionController : ControllerBase
     {
         private readonly IMediator _mediator;
+
         public SelectionController(IMediator mediator)
         {
             _mediator = mediator;
@@ -48,11 +49,13 @@ namespace Odds.API.Controllers
         [HttpDelete("{id}", Name = "DeleteSelection")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
+        [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteSelection(Guid id)
         {
             var command = new DeleteSelectionCommand() { Id = id };
             await _mediator.Send(command);
+            var eventMessage = new SelectionDeletedEvent(id, DateTime.UtcNow);
             return NoContent();
         }
 

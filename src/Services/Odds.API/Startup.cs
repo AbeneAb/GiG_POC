@@ -7,8 +7,9 @@ using Microsoft.OpenApi.Models;
 using Odds.Application;
 using Odds.Repository;
 using System;
-using Odds.API.Extensions;
-using MassTransit;
+using EventBus.Messages;
+using EventBus.Messages.Interface;
+using EventBus.Messages.Sender;
 
 namespace Odds.API
 {
@@ -27,14 +28,10 @@ namespace Odds.API
             services.AddApplicationServices();
             services.AddInfrastructureServices(Configuration);
             services.AddControllers();
-            services.AddMassTransit(config =>
-            {
-                config.UsingRabbitMq((ctx, cfg) =>
-                {
-                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
-                });
-            });
-            services.AddMassTransitHostedService();
+            var serviceClientSettingsConfig = Configuration.GetSection("RabbitMq");
+            services.Configure<RabbitMqConfiguration>(serviceClientSettingsConfig);
+            services.AddSingleton<ISelectionUpdateSender, SelectionUpdateSender>();
+            
 
 
             services.AddSwaggerGen(c => {

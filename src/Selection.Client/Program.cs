@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using Selection.Client.Contracts;
@@ -12,10 +9,9 @@ using Polly;
 using System.Net.Http;
 using Serilog;
 using System.Threading.Tasks;
-using MassTransit;
-using Selection.Client.EventConsumer;
 using EventBus.Messages;
 using System.Threading;
+using Microsoft.Extensions.Hosting;
 
 namespace Selection.Client
 {
@@ -26,6 +22,19 @@ namespace Selection.Client
         {
             try
             {
+
+                var host = new HostBuilder()
+                  .ConfigureHostConfiguration(configHost =>
+                  {
+                  })
+                  .ConfigureServices((hostContext, services) =>
+                  {
+                      services.AddHostedService<SelectionUpdateRecevier>();
+
+                  })
+                 .UseConsoleLifetime()
+                 .Build();
+
                 Configuration = new ConfigurationBuilder()
                                            .SetBasePath(Directory.GetCurrentDirectory())
                                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
@@ -41,31 +50,12 @@ namespace Selection.Client
 
                 var services = ConfigureServices();
                 var serviceProvider = services.BuildServiceProvider();
-                await serviceProvider.GetService<OddsDisplay>().Run();
-                Console.WriteLine("Press enter to exit");
+              
+                await serviceProvider.GetService<SelectionUpdateRecevier>().StartAsync(new CancellationToken());
 
-                var busControl = Bus.Factory.CreateUsingRabbitMq(cfg =>
-                {
-                    cfg.ReceiveEndpoint(EventBusConstants.SelectionQueue, e =>
-                    {
-                        e.Consumer<SelectionCreatedEventConsumer>();
-                        e.Consumer<SelectionDeletedEventConsumer>();
-                    });
-                });
+                host.Run();
 
-                var source = new CancellationTokenSource(TimeSpan.FromSeconds(10));
 
-                await busControl.StartAsync(source.Token);
-                try
-                {
-                    Console.WriteLine("Press enter to exit");
-
-                    await Task.Run(() => Console.ReadLine());
-                }
-                finally
-                {
-                    await busControl.StopAsync();
-                }
             }
             catch (Exception ex) 
             {
@@ -76,7 +66,9 @@ namespace Selection.Client
                 Log.CloseAndFlush();
             }
         }
-        
+        public static IHostBuilder CreateHostBuilder(string[] args) =>
+           Host.CreateDefaultBuilder(args);
+               
         private static IServiceCollection ConfigureServices()
         {
             IServiceCollection services = new ServiceCollection();
@@ -88,28 +80,15 @@ namespace Selection.Client
             // for strongly typed options to be injected as IOption<T> in constructors
             services.AddOptions();
             var config = Configuration["EventBusSettings:HostAddress"];
-            services.AddMassTransit(config => {
-
-                config.AddConsumer<SelectionCreatedEventConsumer>();
-                config.AddConsumer<SelectionDeletedEventConsumer>();
-
-                config.UsingRabbitMq((ctx, cfg) => {
-                    cfg.Host(Configuration["EventBusSettings:HostAddress"]);
-
-                    cfg.ReceiveEndpoint(EventBusConstants.SelectionQueue, c => {
-                        c.ConfigureConsumer<SelectionCreatedEventConsumer>(ctx);
-                        c.ConfigureConsumer<SelectionDeletedEventConsumer>(ctx);
-                    });
-                });
-            });
-            services.AddMassTransitHostedService();
-
+            var serviceClientSettingsConfig = Configuration.GetSection("RabbitMq");
+            var serviceClientSettings = serviceClientSettingsConfig.Get<RabbitMqConfiguration>();
+            services.Configure<RabbitMqConfiguration>(serviceClientSettingsConfig);
             // General Configuration
-            services.AddScoped<SelectionCreatedEventConsumer>();
-            services.AddScoped<SelectionDeletedEventConsumer>();
+           
             // Register the actual application entry point
             services.AddTransient<LoggingDelegatingHandler>();
             services.AddTransient<OddsDisplay>();
+            services.AddHostedService<SelectionUpdateRecevier>();
 
 
             services.AddHttpClient<ISelectionService, SelectionService>(c =>

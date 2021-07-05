@@ -16,6 +16,15 @@ services:
       context: .
       dockerfile: Services/Odds.API/Dockerfile
 
+  Odds.Client:
+    image: ${DOCKER_REGISTRY-}ods.client
+    build: 
+      context: .
+      dockerfile: Client/Odds.Client
+
+
+
+
 volumes:
   oddsdb_data:
   pgadmin_data:
