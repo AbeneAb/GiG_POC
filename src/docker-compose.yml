@@ -16,11 +16,11 @@ services:
       context: .
       dockerfile: Services/Odds.API/Dockerfile
 
-  Odds.Client:
-    image: ${DOCKER_REGISTRY-}ods.client
+  odds.client:
+    image: ${DOCKER_REGISTRY-}odds.client
     build: 
       context: .
-      dockerfile: Client/Odds.Client
+      dockerfile: Odds.Client/Odds.Client/Dockerfile
 
 
 
