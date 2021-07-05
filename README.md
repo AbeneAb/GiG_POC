@@ -45,8 +45,8 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 
 * **Odds API -> http://host.docker.internal:8000/swagger/index.html**
 * **Rabbit Management Dashboard -> http://host.docker.internal:15672**   -- guest/guest
-
 * **pgAdmin PostgreSQL -> http://host.docker.internal:5050**   -- admin@odds.com password => admin1234
+* **Odds Client Console application to see selection events**
 
 
 Thank you.
