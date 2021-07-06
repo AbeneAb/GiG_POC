@@ -24,7 +24,8 @@ namespace Odds.Application.ViewModels
             Odds = selection.Odds;
             Index = selection.Index;
             Label = selection.ParticipantLabel;
-            Status = selection.SelectionStatus.Name;
+            Status = MarketStatus.FromValue<MarketStatus>(selection.SelectionStatusId).Name;
+            //selection.SelectionStatus?.Name;
             MarketLabel = selection.Market?.Label;
             DeadLine = selection.Market?.EndDateTime;
         }

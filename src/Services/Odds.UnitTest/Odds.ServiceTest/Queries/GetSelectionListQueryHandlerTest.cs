@@ -7,6 +7,7 @@ using Xunit;
 using Odds.Application.Features.Selection.Query;
 using Odds.Domain.Interfaces;
 using Odds.Domain.Entities;
+using Odds.Application.ViewModels;
 
 namespace Odds.ServiceTest.Queries
 {
@@ -36,7 +37,7 @@ namespace Odds.ServiceTest.Queries
             var result = await _testee.Handle(new GetSelectionListQuery(), default);
 
             A.CallTo(() => _selectionRepo.GetAllSelection()).MustHaveHappenedOnceExactly();
-            result.Should().BeOfType<List<Selection>>();
+            result.Should().BeOfType<List<SelectionVm>>();
             result.Count.Should().Be(3);
         }
     }
