@@ -56,13 +56,12 @@ services:
     container_name: odds.client
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - "ConnectionStrings:OddsConnectionString=Server=oddsdb;Port=5432;Database=OddsDb;User Id=admin;Password=admin1234;"
       - "RabbitMq:Hostname=rabbitmq"
       - "RabbitMq:QueueName=SelectionQueue"
       - "RabbitMq:UserName=guest"
       - "RabbitMq:Password=guest"
       - "RabbitMq:Port=5672"
-      - "ApiSettings:GatewayAddress=http://localhost:8000"
+      - "ApiSettings:GatewayAddress=http://odds.api"
     depends_on:
       - oddsdb
       - rabbitmq
