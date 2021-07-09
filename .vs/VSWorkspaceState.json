@@ -1,7 +1,10 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\Services",
+    "\\src\\Services\\Odds.Repository"
   ],
-  "SelectedNode": "\\ODDESTODDS_POC.sln",
+  "SelectedNode": "\\src\\ODDESTODDS_POC.sln",
   "PreviewInSolutionExplorer": false
 }

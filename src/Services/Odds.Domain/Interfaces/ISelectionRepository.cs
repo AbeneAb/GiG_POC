@@ -13,5 +13,6 @@ namespace Odds.Domain.Interfaces
         Task<Selection> GetSelection(Guid Id);
         Task<IEnumerable<Selection>> GetSelectionForMarket(Guid marketGuid);
         Task<IEnumerable<Selection>> GetAllSelection();
+        Task<IEnumerable<Selection>> GetSelectionByMarketAndId(Guid guid,decimal odds);
     }
 }

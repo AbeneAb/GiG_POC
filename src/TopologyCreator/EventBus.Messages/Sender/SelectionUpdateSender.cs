@@ -63,14 +63,17 @@ namespace EventBus.Messages.Sender
         {
             if (ConnectionExists())
             {
+               
                 using (var channel = _connection.CreateModel())
                 {
-                    channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
 
+                    channel.ExchangeDeclare(exchange: "SelectionExchange", type: ExchangeType.Fanout);
+
+                   // channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
                     var json = System.Text.Json.JsonSerializer.Serialize(customer);
                     var body = Encoding.UTF8.GetBytes(json);
 
-                    channel.BasicPublish(exchange: "", routingKey: _queueName, basicProperties: null, body: body);
+                    channel.BasicPublish(exchange: "SelectionExchange", routingKey: "", basicProperties: null, body: body);
                 }
             }
         }

@@ -1,4 +1,5 @@
-﻿using Odds.Domain.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Odds.Domain.Entities;
 using Odds.Domain.Interfaces;
 using Odds.Repository.Context;
 using System;
@@ -37,6 +38,12 @@ namespace Odds.Repository.Repositories
             {
                 await _context.Entry(selection).Reference(s => s.SelectionStatus).LoadAsync();
             }
+            return selection;
+        }
+
+        public async Task<IEnumerable<Selection>> GetSelectionByMarketAndId(Guid marketGuid, decimal odds)
+        {
+            var selection = await GetAsync(x => x.MarketGuid == marketGuid && x.Odds == odds);
             return selection;
         }
 

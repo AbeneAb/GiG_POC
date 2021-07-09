@@ -49,7 +49,6 @@ namespace Odds.API.Controllers
         [HttpDelete("{id}", Name = "DeleteSelection")]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.NotFound)]
-        [ProducesResponseType((int)HttpStatusCode.Accepted)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult> DeleteSelection(Guid id)
         {

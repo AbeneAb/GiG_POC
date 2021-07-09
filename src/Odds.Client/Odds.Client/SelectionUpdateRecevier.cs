@@ -24,7 +24,7 @@ namespace Odds.Client
         private readonly IEventService _selectionUpdateRecevier;
         private readonly ISelectionService _selectionService;
         private readonly string _hostname;
-        private readonly string _queueName;
+        private string _queueName;
         private readonly string _username;
         private readonly string _password;
         private readonly int _port;
@@ -95,7 +95,14 @@ namespace Odds.Client
             _connection = factory.CreateConnection();
             _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
+            _channel.ExchangeDeclare(exchange: "SelectionExchange", type: ExchangeType.Fanout);
+            _queueName = _channel.QueueDeclare().QueueName;
+            _channel.QueueBind(queue: _queueName,
+                              exchange: "SelectionExchange",
+                              routingKey: "");
+
+
+           // _channel.QueueDeclare(queue: _queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
